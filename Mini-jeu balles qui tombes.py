@@ -5,7 +5,7 @@ class Balles :
     def __init__(self) :
         """Initie les propriétés des balles"""
         self.taille = random.randint(info_ecran.current_h//60,info_ecran.current_h//10)
-        self.couleur = (random.randint(0,255), random.randint(0,255),random.randint(0,255))
+        self.couleur = (random.randint(20,255), random.randint(20,255),random.randint(20,255))
         self.vitesse = random.randint(info_ecran.current_h//300,info_ecran.current_h//100) 
         self.x = random.randint(0,info_ecran.current_w-1) 
         self.y = 0-self.taille
