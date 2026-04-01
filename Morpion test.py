@@ -1,12 +1,14 @@
 plateau =[0 for i in range 9]
 
-def choix_joueur (case):
-	case=int(input("Entrer un nombre entre 1 et 9"))
-	if case in range plateau:
-        if plateau[case]=='':
+def choix_joueur():
+    case=int(input("Entrer un nombre entre 1 et 9: "))
+    choix=case
+    if case in range(len(plateau)):
+        if plateau[case]==0:
             plateau[case]="X"
-	else:
+    else:
         return none
+    print(plateau)
 
 def bot ():
 	bloque la victoire du joueur ou joue une case au hasard
