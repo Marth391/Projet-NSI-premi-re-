@@ -1,0 +1,29 @@
+def demande joueur (case):
+	verifie que la case souhaité sois entre 1 et 9
+	vérifie que la case souhaité ne sois pas occupé	
+		else: return none
+
+def bot ():
+	bloque la victoire du joueur ou joue une case au hasard
+
+definition tab
+while win != True or win != False or toute les cases ne sont pas occupé
+
+	tab[demande joueur] = 1
+	verifie si le joueur a gagné
+		si oui : win = true
+	sinon : tab[bot] = 2
+	verifie si le bot a gagné 
+		si oui : win = false
+
+if win == true:
+return Le joueur a gagné !
+if win == false:
+return le joueur a perdu !
+else:
+return égalité !
+
+
+
+
+
