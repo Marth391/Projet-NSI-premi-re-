@@ -83,6 +83,7 @@ def rush(screen,clock) :
                     if v.sens(x_interraction,y_interraction) != False :
                         v.avancer(v.sens(x_interraction,y_interraction))
         grille = [[blanc for i in range(6)]for j in range(6)]
+        screen.fill(noir)
         for v in voitures :
             v.sur_grille()
         for i in range (6) :
@@ -90,5 +91,5 @@ def rush(screen,clock) :
             for j in range(6) : 
                 y_screen = info.current_h//5 + round(j*(info.current_h//10))
                 pygame.draw.rect(screen,grille[j][i],(x_screen,y_screen,info.current_h//10,info.current_h//10)) 
-        clock = 60
+        clock.tick(60)
         pygame.display.flip() 

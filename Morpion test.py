@@ -1,4 +1,4 @@
-plateau =[0 for i in range 9]
+plateau =[0 for i in range (9)]
 
 def choix_joueur():
     case=int(input("Entrer un nombre entre 1 et 9: "))
