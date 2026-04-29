@@ -24,8 +24,7 @@ def tic_tac_toe(screen,clock) :
             if event.type == pygame.MOUSEBUTTONDOWN :
                 coordonnee = pygame.mouse.get_pos()
                 x_interraction = round((coordonnee[0] - (info.current_w//2 - 1.5*(info.current_h//3.5)))//(info.current_h//3.5)) 
-                y_interraction = round((coordonnee[1] - (info.current_h//3))//(info.current_h//3.5))
-                print(x_interraction, y_interraction) 
+                y_interraction = round((coordonnee[1] - (info.current_h//3))//(info.current_h//3.5)) + 1 
         
         grille = [[blanc for i in range(3)]for j in range(3)]
         for i in range (3) :
@@ -33,5 +32,6 @@ def tic_tac_toe(screen,clock) :
             for j in range(3) :
                 y_screen = (info.current_h//2) - (1.5*(info.current_h//3.5)) + round(j*(info.current_h//3.5))
                 pygame.draw.rect(screen,grille[j][i],(x_screen,y_screen,info.current_h//3.5,info.current_h//3.5))
+                pygame.draw.rect(screen,noir,(x_screen,y_screen,info.current_h//3.5,info.current_h//3.5), (info.current_h//200))
         pygame.display.flip()
         clock.tick(60) 
