@@ -3,7 +3,11 @@ def tic_tac_toe(screen,clock) :
     rouge = (255,000,000)
     blanc = (255,255,255)
     bleu = (000,000,255)
-    noir = (000,000,000) 
+    noir = (000,000,000)
+    croix = pygame.image.load("croix.png")
+    rond = pygame.image.load("rond.png")
+    fond_blanc = pygame.image.load("fond blanc.png") 
+
 
     class Case :
         def __init__(self, x, y, etat) :
@@ -15,6 +19,9 @@ def tic_tac_toe(screen,clock) :
 
     while runing :
         info = pygame.display.Info()
+        croix = pygame.transform.scale(croix,(info.current_h//3.5,info.current_h//3.5))
+        fond_blanc = pygame.transform.scale(fond_blanc,(info.current_h//3.5,info.current_h//3.5))
+        rond = pygame.transform.scale(rond,(info.current_h//3.5,info.current_h//3.5))
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT :
                 runing = False
@@ -29,9 +36,13 @@ def tic_tac_toe(screen,clock) :
         grille = [[blanc for i in range(3)]for j in range(3)]
         for i in range (3) :
             x_screen = (info.current_w//2) - (1.5*(info.current_h//3.5)) + round(i*(info.current_h//3.5))
+
             for j in range(3) :
                 y_screen = (info.current_h//2) - (1.5*(info.current_h//3.5)) + round(j*(info.current_h//3.5))
-                pygame.draw.rect(screen,grille[j][i],(x_screen,y_screen,info.current_h//3.5,info.current_h//3.5))
+                rectangle = pygame.Rect((x_screen,y_screen,info.current_h//3.5,info.current_h//3.5))
+                screen.blit(rond, rectangle)
+                
+                
                 pygame.draw.rect(screen,noir,(x_screen,y_screen,info.current_h//3.5,info.current_h//3.5), (info.current_h//200))
         pygame.display.flip()
         clock.tick(60) 
