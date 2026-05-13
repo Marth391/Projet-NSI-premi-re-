@@ -1,3 +1,4 @@
+import random 
 def rush(screen,clock) :
     import pygame 
     rouge = (255,000,000)
@@ -7,7 +8,11 @@ def rush(screen,clock) :
     violet = (255,000,255)
     orange = (255,150,80)
     bleu = (000,000,255)
-    noir = (000,000,000) 
+    noir = (000,000,000)
+    rose = (255,105,180)
+    cyan = (000,255,255)
+    gris = (150,150,150)
+    beige = (200,173,127) 
 
     class Voiture :
         def __init__(self, x, y, longueur, direc,color) :
@@ -62,9 +67,22 @@ def rush(screen,clock) :
                 except : pass
             pass 
 
-
-    voitures = [Voiture(0,0,3,0,jaune), Voiture(3,0,3,0,violet), Voiture(2,1,3,0,bleu),Voiture(0,2,2,0,rouge), Voiture(2,2,2,1,vert), Voiture(0,4,3,0,jaune), Voiture(5,4,2,1,orange)]
-
+    positions_disponibles = [[Voiture(0,0,3,0,jaune), Voiture(3,0,3,0,violet), Voiture(2,1,3,0,bleu),Voiture(0,2,2,0,rouge), Voiture(2,2,2,1,vert), Voiture(0,4,3,0,jaune), Voiture(5,4,2,1,orange)], 
+                             [Voiture(0,0,3,0,jaune), Voiture(4,0,3,1,violet), Voiture(1,1,2,1,vert), Voiture(2,2,2,0,rouge), Voiture(4,3,2,0,orange), Voiture(4,4,2,0,rose), Voiture(2,4,2,1,bleu)],
+                             [Voiture(0,0,2,0,vert), Voiture(2,0,2,0,orange), Voiture(4,0,2,1,cyan), Voiture(0,2,2,0,rouge), Voiture(3,2,2,1,rose), Voiture(0,3,3,0,jaune), Voiture(1,4,2,1,violet), Voiture(3,4,3,0,bleu)],
+                             [Voiture(4,0,2,0,vert), Voiture(4,1,3,1,jaune), Voiture(2,2,2,0,rouge), Voiture(5,2,2,1,orange), Voiture(0,3,2,0,bleu), Voiture(2,3,2,0,rose), Voiture(0,4,2,9,violet), Voiture(2,4,2,1,cyan),Voiture(4,4,2,0,gris), Voiture(4,5,2,0,beige)],
+                             [Voiture(2,0,3,1,jaune), Voiture(5,1,2,1,vert), Voiture(0,2,2,0,rouge), Voiture(4,3,3,1,violet), Voiture(0,4,2,1,orange), Voiture(1,4,2,0,bleu)],
+                             [Voiture(1,0,3,1,jaune), Voiture(2,1,2,0,vert), Voiture(2,2,2,0,rouge), Voiture(4,2,2,1,orange), Voiture(5,1,3,1,violet), Voiture(3,3,2,1,bleu), Voiture(4,4,2,0,rose), Voiture(0,5,2,0,gris), Voiture(2,5,2,0,cyan)],
+                             [Voiture(0,0,3,1,jaune), Voiture(1,0,2,1,vert), Voiture(2,0,2,1,orange), Voiture(3,0,3,0,violet), Voiture(4,1,2,1,beige), Voiture(5,1,2,1,rose), Voiture(1,2,2,0,rouge), Voiture(0,3,3,0,bleu), Voiture(4,3,2,1,vert), Voiture(5,3,2,1,cyan), Voiture(4,5,2,0,gris)],
+                             [Voiture(2,0,2,0,gris), Voiture(4,0,2,0,orange), Voiture(2,1,3,0,jaune), Voiture(5,1,2,1,cyan), Voiture(0,2,2,0,rouge), Voiture(2,2,3,1,violet), Voiture(4,2,2,1,rose), Voiture(0,5,3,0,vert), Voiture(4,4,2,1,beige), Voiture(5,3,3,1,bleu)],
+                             [Voiture(0,0,2,1,vert), Voiture(1,0,2,0,orange), Voiture(5,0,3,1,jaune), Voiture(1,1,2,0,bleu), Voiture(4,1,2,1,rose), Voiture(0,2,2,0,rouge), Voiture(2,2,2,1,violet), Voiture(1,4,2,1,cyan), Voiture(2,4,2,0,gris), Voiture(4,4,2,1,beige)],
+                             [Voiture(0,0,2,1,vert), Voiture(1,0,3,1,jaune), Voiture(2,0,2,1,orange), Voiture(3,0,2,1,beige), Voiture(4,0,2,0,rose), Voiture(2,2,2,0,rouge), Voiture(5,1,2,1,violet), Voiture(2,3,3,1,violet), Voiture(4,3,2,0,cyan), Voiture(3,4,3,0,bleu), Voiture(0,5,2,0,gris)]]
+    
+    
+    
+    
+    
+    voitures = positions_disponibles[random.randint(0,9)]
     runing = True
 
     while runing :
@@ -90,6 +108,11 @@ def rush(screen,clock) :
             x_screen = (info.current_w//2) - (3*(info.current_h//10)) + (i*(info.current_h//10))
             for j in range(6) : 
                 y_screen = info.current_h//5 + round(j*(info.current_h//10))
-                pygame.draw.rect(screen,grille[j][i],(x_screen,y_screen,info.current_h//10,info.current_h//10)) 
+                pygame.draw.rect(screen,grille[j][i],(x_screen,y_screen,info.current_h//10,info.current_h//10))
+        if grille[2][5] == rouge :
+            runing = False 
         clock.tick(60)
-        pygame.display.flip() 
+        pygame.display.flip()
+    if grille[2][5] == rouge :
+        return True
+    else : return False 
