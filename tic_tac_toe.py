@@ -61,7 +61,7 @@ def tic_tac_toe(screen,clock) :
                 pygame.draw.rect(screen,noir,(x_screen,y_screen,t,t), (info.current_h//200))
         pygame.display.flip()
         clock.tick(60)
-        if tour != tour_self :
+        if tour != tour_self and not (all(grille[i][j] != 0 for i in range (3) for j in range(3))):
             jouer = True
             for c1, c2, c3 in combos :
                 if jouer == True : 
@@ -72,12 +72,15 @@ def tic_tac_toe(screen,clock) :
                         jouer = False
                         pygame.time.delay(500) 
                         grille[cases[index][0]][cases[index][1]] = tour
-                    elif valeurs.count(tour_self) == 2 and valeurs.count(0) == 1 :
+            for c1, c2, c3 in combos :
+                if jouer == True : 
+                    valeurs = [grille[c1[0]][c1[1]], grille[c2[0]][c2[1]], grille[c3[0]][c3[1]]]
+                    if valeurs.count(tour_self) == 2 and valeurs.count(0) == 1 :
                         cases = [c1, c2, c3]
                         index = valeurs.index(0)
+                        jouer = False
                         pygame.time.delay(500) 
                         grille[cases[index][0]][cases[index][1]] = tour
-                        jouer = False
             if jouer == True :
                 boucle = True
                 while boucle :
@@ -123,5 +126,5 @@ def tic_tac_toe(screen,clock) :
                 pygame.time.delay(500) 
                 return False
         if all(grille[i][j] != 0 for i in range (3) for j in range(3)) :
-               grille = [[0 for i in range(3)]for j in range(3)]
+            grille = [[0 for i in range(3)]for j in range(3)]
         
