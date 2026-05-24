@@ -24,6 +24,7 @@ def tic_tac_toe(screen,clock) :
     runing = True
     
     while runing :
+        screen.fill(noir) 
         info = pygame.display.Info()
         t = info.current_h//3.5 
         croix = pygame.transform.scale(croix,(t,t))
@@ -52,15 +53,6 @@ def tic_tac_toe(screen,clock) :
                                     tour = 2
                                 elif tour == 2 :
                                     tour = 1
-        for i in range (3) :
-            x_screen = (info.current_w//2) - (1.5*t) + round(i*t)
-            for j in range(3) :
-                y_screen = (info.current_h//2) - (1.5*t) + round(j*t)
-                rectangle = pygame.Rect(x_screen,y_screen,t,t)
-                screen.blit(etats_possibles[grille[j][i]], rectangle)
-                pygame.draw.rect(screen,noir,(x_screen,y_screen,t,t), (info.current_h//200))
-        pygame.display.flip()
-        clock.tick(60)
         if tour != tour_self and not (all(grille[i][j] != 0 for i in range (3) for j in range(3))):
             jouer = True
             for c1, c2, c3 in combos :
@@ -95,7 +87,15 @@ def tic_tac_toe(screen,clock) :
                 tour = 2
             elif tour == 2 :
                 tour = 1
-                
+        for i in range (3) :
+            x_screen = (info.current_w//2) - (1.5*t) + round(i*t)
+            for j in range(3) :
+                y_screen = (info.current_h//2) - (1.5*t) + round(j*t)
+                rectangle = pygame.Rect(x_screen,y_screen,t,t)
+                screen.blit(etats_possibles[grille[j][i]], rectangle)
+                pygame.draw.rect(screen,noir,(x_screen,y_screen,t,t), (info.current_h//200))
+        pygame.display.flip()
+        clock.tick(60)        
         for i in range(3):
             if grille[i][0] == grille[i][1] == grille[i][2] != 0:
                 if grille[i][1] == tour_self :

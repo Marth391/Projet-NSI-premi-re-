@@ -115,4 +115,3 @@ def rush(screen,clock) :
         pygame.display.flip()
     if grille[2][5] == rouge :
         return True
-    else : return False 
