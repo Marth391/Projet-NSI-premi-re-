@@ -34,6 +34,38 @@ def tic_tac_toe(screen,clock) :
             grille = [[0 for i in range(3)]for j in range(3)]
         initialisation = False 
         etats_possibles = [fond_blanc, rond, croix]
+        if tour != tour_self and not (all(grille[i][j] != 0 for i in range (3) for j in range(3))):
+            jouer = True
+            pygame.time.delay(500) 
+            for c1, c2, c3 in combos :
+                if jouer == True : 
+                    valeurs = [grille[c1[0]][c1[1]], grille[c2[0]][c2[1]], grille[c3[0]][c3[1]]]
+                    if valeurs.count(tour) == 2 and valeurs.count(0) == 1 :
+                        cases = [c1, c2, c3]
+                        index = valeurs.index(0)
+                        jouer = False 
+                        grille[cases[index][0]][cases[index][1]] = tour
+            for c1, c2, c3 in combos :
+                if jouer == True : 
+                    valeurs = [grille[c1[0]][c1[1]], grille[c2[0]][c2[1]], grille[c3[0]][c3[1]]]
+                    if valeurs.count(tour_self) == 2 and valeurs.count(0) == 1 :
+                        cases = [c1, c2, c3]
+                        index = valeurs.index(0)
+                        jouer = False
+                        grille[cases[index][0]][cases[index][1]] = tour
+            if jouer == True :
+                boucle = True
+                while boucle :
+                    case_random = random.randint(0,2), random.randint(0,2) 
+                    if grille[case_random[0]][case_random[1]] == 0 :
+                        grille[case_random[0]][case_random[1]] = tour
+                        boucle = False
+                        jouer = False 
+                        break
+            if tour == 1 :
+                tour = 2
+            elif tour == 2 :
+                tour = 1
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT :
                 runing = False
@@ -52,41 +84,7 @@ def tic_tac_toe(screen,clock) :
                                 if tour == 1 :
                                     tour = 2
                                 elif tour == 2 :
-                                    tour = 1
-        if tour != tour_self and not (all(grille[i][j] != 0 for i in range (3) for j in range(3))):
-            jouer = True
-            for c1, c2, c3 in combos :
-                if jouer == True : 
-                    valeurs = [grille[c1[0]][c1[1]], grille[c2[0]][c2[1]], grille[c3[0]][c3[1]]]
-                    if valeurs.count(tour) == 2 and valeurs.count(0) == 1 :
-                        cases = [c1, c2, c3]
-                        index = valeurs.index(0)
-                        jouer = False
-                        pygame.time.delay(500) 
-                        grille[cases[index][0]][cases[index][1]] = tour
-            for c1, c2, c3 in combos :
-                if jouer == True : 
-                    valeurs = [grille[c1[0]][c1[1]], grille[c2[0]][c2[1]], grille[c3[0]][c3[1]]]
-                    if valeurs.count(tour_self) == 2 and valeurs.count(0) == 1 :
-                        cases = [c1, c2, c3]
-                        index = valeurs.index(0)
-                        jouer = False
-                        pygame.time.delay(500) 
-                        grille[cases[index][0]][cases[index][1]] = tour
-            if jouer == True :
-                boucle = True
-                while boucle :
-                    case_random = random.randint(0,2), random.randint(0,2) 
-                    if grille[case_random[0]][case_random[1]] == 0 :
-                        pygame.time.delay(500) 
-                        grille[case_random[0]][case_random[1]] = tour
-                        boucle = False
-                        jouer = False 
-                        break          
-            if tour == 1 :
-                tour = 2
-            elif tour == 2 :
-                tour = 1
+                                    tour = 1        
         for i in range (3) :
             x_screen = (info.current_w//2) - (1.5*t) + round(i*t)
             for j in range(3) :
