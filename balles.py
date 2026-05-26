@@ -26,8 +26,8 @@ def balles (screen, clock) :
             """Détecte si le curseur est sur la balle en utilisant les coordonnées du curseur et du centre de la balle ainsi que sa taille."""
             distance = ((position_souris[0] - self.x)**2 + (position_souris[1] - self.y)**2)**0.5
             return distance >= self.taille  
-    mes_balles = []
-    compteur = 0 
+    mes_balles = [] #initialisation de la lise de balles 
+    compteur = 0 #compteur de balles touchées 
     runing = True 
     while runing == True:
         
@@ -48,15 +48,16 @@ def balles (screen, clock) :
                     
         screen.fill((0,0,0)) #on remplie le fond en noir pour réinitialiser l'écran et ne pas avoir les anciennes images mais après on pourra mettre un fond 
         
-        for b in mes_balles :
-            b.draw(screen)
-            b.bouger()
-        for b in mes_balles :
+        for b in mes_balles : 
             if b.etat == False :
-                compteur += 1
+                compteur += 1 #compteur de balle touchées 
             if b.y >= info_ecran.current_h :
                 runing = False 
         mes_balles = [b for b in mes_balles if b.y <= (info_ecran.current_h + b.taille) and b.etat == True] #On gère l'affichage des balles et on supprime celles qui sont innutiles 
+        
+        for b in mes_balles : #affichage de toutes les balles 
+            b.draw(screen)
+            b.bouger()
         
         pygame.display.flip() #Affichage 
         clock.tick(60) 
