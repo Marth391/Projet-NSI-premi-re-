@@ -1,10 +1,11 @@
+import pygame
+import random 
 def tic_tac_toe(screen,clock) : 
-    import pygame
-    import random 
     noir = (000,000,000)
     croix = pygame.image.load("croix.png")
     rond = pygame.image.load("rond.png")
     fond_blanc = pygame.image.load("fond blanc.png")
+    info = pygame.display.Info()
     
     combos = [
                 ((0,0), (0,1), (0,2)), # Lignes
@@ -25,7 +26,6 @@ def tic_tac_toe(screen,clock) :
     
     while runing :
         screen.fill(noir) 
-        info = pygame.display.Info()
         t = info.current_h//3.5 
         croix = pygame.transform.scale(croix,(t,t))
         fond_blanc = pygame.transform.scale(fond_blanc,(t,t))

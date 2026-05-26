@@ -1,6 +1,8 @@
-import random 
+import random
+import pygame 
 def rush(screen,clock) :
-    import pygame 
+    pygame.init() 
+    info = pygame.display.Info()
     rouge = (255,000,000)
     vert = (000,255,000)
     blanc = (255,255,255)
@@ -86,7 +88,6 @@ def rush(screen,clock) :
     runing = True
 
     while runing :
-        info = pygame.display.Info()
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT :
                 runing = False

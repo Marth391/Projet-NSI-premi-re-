@@ -1,6 +1,7 @@
+import pygame
+import random
 def balles (screen, clock) :
-    import pygame
-    import random
+    info_ecran = pygame.display.Info() #On récupère les infos de l'écrant pour adapter la tailles des balles et leur vitesse. 
     class Balles :
         def __init__(self) :
             """Initie les propriétés des balles"""
@@ -27,15 +28,11 @@ def balles (screen, clock) :
             return distance >= self.taille  
     mes_balles = []
     compteur = 0 
-
     runing = True 
     while runing == True:
         
         if random.randint(0,50) == 1 : #On a une probabilité de faire apparaître une balle. 
-            mes_balles.append(Balles())
-            
-        info_ecran = pygame.display.Info() #On récupère les infos de l'écrant pour adapter la tailles des balles et leur vitesse. 
-        
+            mes_balles.append(Balles())        
         for event in pygame.event.get() : #On récupère les évènements qui ont eu lieu (touche pressées notamment) 
             
             if event.type == pygame.QUIT :
