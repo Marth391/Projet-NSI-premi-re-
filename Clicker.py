@@ -24,10 +24,13 @@ class amelioration:
 
 clic = 1
 argent = IntVar(value=0)
-amelioration1 = amelioration(20, 3, False, "Foreuse")
+cpt_ame = 1
+tab_gain = [0,500,2500,7500,15000]
+gain = tab_gain[1]
+amelioration1 = amelioration(50, 3, False, "Foreuse")
 amelioration2 = amelioration(500, 10, False, "Engin")
-amelioration3 = amelioration(500, 10, False, "Engin2")
-amelioration4 = amelioration(500, 10, False, "Engin3")
+amelioration3 = amelioration(10000, 500, False, "Engin2")
+amelioration4 = amelioration(250000, 5000, False, "Engin3")
 
 les_ameliorations = [amelioration1, amelioration2, amelioration3, amelioration4]
 
@@ -35,18 +38,11 @@ def ajout():
     global clic
     argent.set(argent.get() + clic)
 
-def update_bouton():
-    index = recherche_ame()
-
-    if index is None:
-        amelio.destroy()
-        Label(fenetre, text="Vous avez acheté toutes les améliorations !").pack()
-    else:
-        ame = les_ameliorations[index]
-        amelio.config(text=ame.nom, command=lambda: achat(index))
-
 def achat(index):
     global clic
+    global gain
+    global cpt_ame
+    global tab_gain
     ame = les_ameliorations[index]
 
     if argent.get() >= ame.prix:
@@ -54,6 +50,12 @@ def achat(index):
         clic += ame.clic
         ame.etat = True
         update_bouton(index)
+        if cpt_ame != 4:
+            cpt_ame += 1
+            gain = tab_gain[cpt_ame]
+        
+        
+    
 
 def update_bouton(index):
     if index == 0:
@@ -84,25 +86,25 @@ amelio = Button(cadre_amélioration,text=amelioration1.nom,command=lambda:achat(
 amelio.place(x=20, y=70,width=100,height=50)
 
 texte_amelio = Label(cadre_amélioration,text=f'Prix : {amelioration1.prix} ｜Clic + {amelioration1.clic}',font='Impact 12',bg='cyan')
-texte_amelio.place(x=130, y=95,anchor=W)
+texte_amelio.place(x=125, y=95,anchor=W)
 
 amelio2 = Button(cadre_amélioration,text=amelioration2.nom,command=lambda:achat(1),font='Georgia 10')
 amelio2.place(x=20, y=140,width=100,height=50)
 
 texte_amelio2 = Label(cadre_amélioration,text=f'Prix : {amelioration2.prix} ｜Clic + {amelioration2.clic}',font='Impact 12',bg='cyan')
-texte_amelio2.place(x=130, y=165,anchor=W)
+texte_amelio2.place(x=125, y=165,anchor=W)
 
 amelio3 = Button(cadre_amélioration,text=amelioration3.nom,command=lambda:achat(2),font='Georgia 10')
 amelio3.place(x=20, y=210,width=100,height=50)
 
-texte_amelio3 = Label(cadre_amélioration,text=f'Prix : {amelioration3.prix} ｜Clic + {amelioration3.clic}',font='Impact 12',bg='cyan')
-texte_amelio3.place(x=130, y=235,anchor=W)
+texte_amelio3 = Label(cadre_amélioration,text=f'Prix : {amelioration3.prix//1000}K ｜Clic + {amelioration3.clic}',font='Impact 12',bg='cyan')
+texte_amelio3.place(x=125, y=235,anchor=W)
 
 amelio4 = Button(cadre_amélioration,text=amelioration4.nom,command=lambda:achat(3),font='Georgia 10')
 amelio4.place(x=20, y=280,width=100,height=50)
 
-texte_amelio4 = Label(cadre_amélioration,text=f'Prix : {amelioration4.prix} ｜Clic + {amelioration4.clic}',font='Impact 12',bg='cyan')
-texte_amelio4.place(x=130, y=305,anchor=W)
+texte_amelio4 = Label(cadre_amélioration,text=f'Prix : {amelioration4.prix//1000}K ｜Clic + {amelioration4.clic//1000}K',font='Impact 12',bg='cyan')
+texte_amelio4.place(x=125, y=305,anchor=W)
 
 texte_amelio = Label(cadre_amélioration,text='Améliorations',font='Impact 20',bg='cyan')
 texte_amelio.place(x=60,y=5)
@@ -113,11 +115,13 @@ boutons_mini_jeux = []
 
 def lancer_roulette():
     global argent
+    global gain
+    global cpt_ame
     bouton_roulette.config(state=DISABLED)
     hasard = randint(0,4)
     print(hasard)
     hasard2 = randint(0,4)
-    coup_animation = 30 + abs(hasard-hasard2)
+    coup_animation = 30 + hasard + hasard2
     for i in range(15):
         boutons_mini_jeux[(hasard2+i)%5].config(bg='gold')
         boutons_mini_jeux[(hasard2+i)%5].update_idletasks()
@@ -130,28 +134,28 @@ def lancer_roulette():
         time.sleep(0.2)
         boutons_mini_jeux[(hasard2+i)%5].config(bg='white')
         boutons_mini_jeux[(hasard2+i)%5].update_idletasks()
-    for _ in range(10):
-        boutons_mini_jeux[hasard2].config(bg='gold')
-        boutons_mini_jeux[hasard2].update_idletasks()
-        time.sleep(0.2)
-        boutons_mini_jeux[hasard2].config(bg='white')
-        boutons_mini_jeux[hasard2].update_idletasks()
-    time.sleep(0.2)
+    for _ in range(4):
+        boutons_mini_jeux[hasard].config(bg='gold')
+        boutons_mini_jeux[hasard].update_idletasks()
+        time.sleep(0.3)
+        boutons_mini_jeux[hasard].config(bg='white')
+        boutons_mini_jeux[hasard].update_idletasks()
+        time.sleep(0.3)
     if hasard == 2:
         win = rush.rush(pygame.display.set_mode((0,0)),pygame.time.Clock())
         if win == True:
-            argent.set(argent.get() + 500)
+            argent.set(argent.get() + gain)
             pygame.quit()
         else:
             pygame.quit()
     if hasard == 0:
         win = morpion.tic_tac_toe(pygame.display.set_mode((0,0)),pygame.time.Clock())
         if win == True:
-            argent.set(argent.get()+500)
+            argent.set(argent.get()+gain)
             pygame.quit()
 
         if win == False:
-            argent.set(argent.get()-250)
+            argent.set(argent.get()-(gain/2))
             pygame.quit()
         else:
             pygame.quit()
@@ -161,7 +165,7 @@ def lancer_roulette():
         argent.set(argent.get()//2)
     if hasard == 4:
         score = balles.balles(pygame.display.set_mode((0,0)),pygame.time.Clock())
-        argent.set(argent.get()+(score*10))
+        argent.set(argent.get()+(score*10**cpt_ame))
         pygame.quit()
 
         
@@ -201,3 +205,4 @@ bouton_dette = Button(cadre_mini_jeux,text='Remboursez votre dette !',font='Impa
 bouton_dette.place(x=450, y=40, width = 140, height = 110)
         
 fenetre.mainloop()
+
