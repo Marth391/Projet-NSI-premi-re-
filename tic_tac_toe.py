@@ -1,8 +1,8 @@
 import pygame
 import random 
 def tic_tac_toe(screen,clock) :
-    info = pygame.display.Info() #demande les informations de l'écrant 
-    t = info.current_h//3.5 #défini la taille des cases 
+    info = pygame.display.Info() #demande les informations de l'écran 
+    t = info.current_h//3.5 #définit la taille des cases 
     
     noir = (000,000,000) 
     
@@ -83,7 +83,7 @@ def tic_tac_toe(screen,clock) :
                 screen.blit(etats_possibles[grille[j][i]], rectangle)
                 pygame.draw.rect(screen,noir,(x_screen,y_screen,t,t), (info.current_h//200))
         pygame.display.flip() #met à jour l'affichage 
-        clock.tick(60) #définition du nombre d'affichage par seconde 
+        clock.tick(60) #définition du nombre d'affichages par seconde 
         
         for i in range(3): #vérification des conditions de victoire : 
             if grille[i][0] == grille[i][1] == grille[i][2] != 0: #colonnes 
@@ -115,5 +115,5 @@ def tic_tac_toe(screen,clock) :
                 pygame.time.delay(500) 
                 return False
         
-        if all(grille[i][j] != 0 for i in range (3) for j in range(3)) : #vérifie si tout la grille est pleine 
-            grille = [[0 for i in range(3)]for j in range(3)] #si la grille est pleine, elle est réinialisée 
+        if all(grille[i][j] != 0 for i in range (3) for j in range(3)) : #vérifie si toute la grille est pleine 
+            grille = [[0 for i in range(3)]for j in range(3)] #si la grille est pleine, elle est réinitialisée 
