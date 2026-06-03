@@ -14,6 +14,7 @@ fenetre.geometry('620x535')
 #fenetre.attributes('-topmost',TRUE)
 
 image2 = PhotoImage( file = "sans.png")
+image_cadre_clicker = PhotoImage( file = "studio.png")
 
 class amelioration:
     def __init__(self, prix, clic, etat, nom):
@@ -27,6 +28,8 @@ argent = IntVar(value=0)
 cpt_ame = 1
 tab_gain = [0,500,2500,7500,15000]
 gain = tab_gain[1]
+lance_roue = 0
+tab_prix_roue = [500,5000,40000,150000]
 amelioration1 = amelioration(50, 3, False, "Foreuse")
 amelioration2 = amelioration(500, 10, False, "Engin")
 amelioration3 = amelioration(10000, 500, False, "Engin2")
@@ -67,8 +70,10 @@ def update_bouton(index):
     if index == 3:
         amelio4.config(state = DISABLED,text='Acheté !')
         
-cadre_clicker = Frame(fenetre, bg = 'black',highlightbackground='brown',highlightthickness=3)
+cadre_clicker = Frame(fenetre, highlightbackground='brown',highlightthickness=3)
 cadre_clicker.place(x=0,y=0,width=340,height=360)
+
+fond_cadre_clicker = Button(cadre_clicker, image = image_cadre_clicker,width=340,height=360,state=DISABLED)
 
 cadre_amélioration = Frame(fenetre, bg = 'cyan',highlightbackground='brown',highlightthickness=3)
 cadre_amélioration.place(x=337,y=0,width=283,height=360)
@@ -114,9 +119,11 @@ liste_jeux = ["MORPION","X2","RUSHHOUR","÷2","BALLES"]
 boutons_mini_jeux = []
 
 def lancer_roulette():
+    global lance_roue
     global argent
     global gain
     global cpt_ame
+    
     bouton_roulette.config(state=DISABLED)
     hasard = randint(0,4)
     print(hasard)
@@ -197,12 +204,14 @@ bouton_roulette.place(x=5*65+30, y=10, width=65, height=155)
 
 boutons_mini_jeux[1].config(font='Impact 20')
 boutons_mini_jeux[3].config(font='Impact 20')
-texte_dette = Label(cadre_mini_jeux,textvariable=argent,font='Impact 13')
-texte_dette.place(x=450, y = 10)
-texte_dette2 = Label(cadre_mini_jeux,text='/1000000',font='Impact 13')
-texte_dette2.place(x=490, y = 10)
-bouton_dette = Button(cadre_mini_jeux,text='Remboursez votre dette !',font='Impact 10')
-bouton_dette.place(x=450, y=40, width = 140, height = 110)
+
+prix_roue = StringVar()
+prix_roue.set( tab_prix_roue[lance_roue%3])
+
+"""prix_roulette = Label(cadre_mini_jeux,text= 'Prix pour lancer la roue : ', font= 'Impact 11')
+prix_roulette.place(x = 430, y = 10,width = 300)"""
+prix_roulette2 = Label(cadre_mini_jeux,textvariable=prix_roue, font= 'Impact 11')
+prix_roulette2.place(x = 450, y = 10,width = 100)
+
         
 fenetre.mainloop()
-
