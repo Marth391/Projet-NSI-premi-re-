@@ -5,6 +5,7 @@ import tic_tac_toe
 import pendu
 import jeu_timing
 
+
 pygame.init() 
 screen = pygame.display.set_mode((0,0)) 
 clock = pygame.time.Clock()
